@@ -31,7 +31,6 @@ public class CategoriaResource {
 	@GetMapping
 	public List<Categoria> listar() {
 		return categoriaRepository.findAll();
-
 	}
 
 	@PostMapping
