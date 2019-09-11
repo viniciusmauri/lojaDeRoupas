@@ -54,4 +54,30 @@ public class Pessoa {
     public void setAtivo(Boolean ativo) {
         this.ativo = ativo;
     }
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((codPessoa == null) ? 0 : codPessoa.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Pessoa other = (Pessoa) obj;
+        if (codPessoa == null) {
+            if (other.codPessoa != null)
+                return false;
+        } else if (!codPessoa.equals(other.codPessoa))
+            return false;
+        return true;
+    }
+
+    
 }
