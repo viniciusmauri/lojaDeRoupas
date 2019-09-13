@@ -48,8 +48,8 @@ public class LancamentoResource {
 
     @GetMapping("/{codLancamento}")
     public ResponseEntity buscaPeloCodLancamento(@PathVariable Long codLancamento) {
-        return this.lancamentoRepository.findAllById(codLancamento).map(pessoa -> ResponseEntity.ok(lancamento))
-                .orElse(ResponseEntity.notFound().buikd());
+        return this.lancamentoRepository.findById(codLancamento).map(lancamento -> ResponseEntity.ok(lancamento))
+                .orElse(ResponseEntity.notFound().build());
     }
 
 }
