@@ -27,7 +27,7 @@ public class Pessoa {
         return codPessoa;
     }
 
-    public void setCod_pessoa(Long codPessoa) {
+    public void setCodpessoa(Long codPessoa) {
         this.codPessoa = codPessoa;
     }
 
