@@ -6,4 +6,5 @@ import com.example.lojamarcao.model.Categoria;
 
 public interface CategoriaRepository extends JpaRepository<Categoria, Long> {
 
+    void delete(Long cod);
 }

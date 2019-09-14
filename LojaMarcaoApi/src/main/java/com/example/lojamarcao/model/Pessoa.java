@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 public class Pessoa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long codPessoa;
+    private Long cod;
 
     @NotNull
     private String nomePessoa;
@@ -23,12 +23,12 @@ public class Pessoa {
 
     private Boolean ativo;
 
-    public Long getCodPessoa() {
-        return codPessoa;
+    public Long getCod() {
+        return cod;
     }
 
-    public void setCodpessoa(Long codPessoa) {
-        this.codPessoa = codPessoa;
+    public void setCod(Long cod) {
+        this.cod = cod;
     }
 
     public String getNomePessoa() {
@@ -59,7 +59,7 @@ public class Pessoa {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((codPessoa == null) ? 0 : codPessoa.hashCode());
+        result = prime * result + ((cod == null) ? 0 : cod.hashCode());
         return result;
     }
 
@@ -72,10 +72,10 @@ public class Pessoa {
         if (getClass() != obj.getClass())
             return false;
         Pessoa other = (Pessoa) obj;
-        if (codPessoa == null) {
-            if (other.codPessoa != null)
+        if (cod == null) {
+            if (other.cod != null)
                 return false;
-        } else if (!codPessoa.equals(other.codPessoa))
+        } else if (!cod.equals(other.cod))
             return false;
         return true;
     }
