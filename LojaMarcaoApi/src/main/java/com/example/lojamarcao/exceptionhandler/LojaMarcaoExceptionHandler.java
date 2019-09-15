@@ -45,7 +45,6 @@ public class LojaMarcaoExceptionHandler extends ResponseEntityExceptionHandler {
 
 		List<Erro> erros = criarListaDeErros(e.getBindingResult());
 		return handleExceptionInternal(e, erros, headers, HttpStatus.BAD_REQUEST, request);
-
 	}
 
 	private List<Erro> criarListaDeErros(BindingResult bindingResult) {
@@ -56,7 +55,6 @@ public class LojaMarcaoExceptionHandler extends ResponseEntityExceptionHandler {
 			String mensagemDev = fieldError.toString();
 			erros.add(new Erro(mensagemUsuario, mensagemDev));
 		}
-
 		return erros;
 	}
 	@ExceptionHandler({EmptyResultDataAccessException.class})
@@ -65,7 +63,7 @@ public class LojaMarcaoExceptionHandler extends ResponseEntityExceptionHandler {
 		String mensagemUsuario = messageSource.getMessage("recurso.nao-encontrado", null, LocaleContextHolder.getLocale());
 		String mensagemDev = e.toString();
 		List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDev));
-		return handleExceptionInternal(e, erros, new HttpHeaders(), HttpStatus.BAD_REQUEST,
+		return handleExceptionInternal(e, erros, new HttpHeaders(), HttpStatus.NOT_FOUND,
 				request);
 	}
 

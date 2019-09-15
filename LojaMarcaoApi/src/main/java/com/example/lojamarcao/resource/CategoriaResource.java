@@ -1,23 +1,18 @@
 package com.example.lojamarcao.resource;
 
-import java.net.URI;
-import java.util.List;
-
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
 import com.example.lojamarcao.event.RecursoCriadoEvent;
 import com.example.lojamarcao.model.Categoria;
 import com.example.lojamarcao.repository.CategoriaRepository;
+import com.example.lojamarcao.service.CategoriaService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/categorias")
@@ -25,6 +20,9 @@ public class CategoriaResource {
 
 	@Autowired
 	private CategoriaRepository categoriaRepository;
+
+	@Autowired
+    private CategoriaService categoriaService;
 
 	@GetMapping
 	public List<Categoria> listar() {
@@ -56,9 +54,9 @@ public class CategoriaResource {
     }
 
     @PutMapping("/{cod}")
-    public Categoria atualizar(@PathVariable Long cod, @Valid @RequestBody Categoria categoria){
-	    Categoria categoriaSalva = this.categoriaRepository.findById(cod).orElseThrow(() -> new EmptyResultDataAccessException(1));
-        BeanUtils.copyProperties(categoria, categoriaSalva, "cod");
-        return this.categoriaRepository.save(categoriaSalva);
+    public ResponseEntity<Categoria> atualizar(@PathVariable Long cod, @Valid @RequestBody Categoria categoria){
+	    Categoria categoriaSalva = categoriaService.atualizar(cod, categoria);
+	    return ResponseEntity.ok(categoriaSalva);
+
     }
 }

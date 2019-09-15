@@ -1,9 +1,8 @@
 package com.example.lojamarcao.resource;
 
-import org.springframework.beans.BeanUtils;
+import com.example.lojamarcao.service.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +22,9 @@ public class PessoaResource {
 
     @Autowired
     private PessoaRepository pessoaRepository;
+
+    @Autowired
+    private PessoaService pessoaService;
 
     @GetMapping
     public List<Pessoa> listar() {
@@ -53,9 +55,9 @@ public class PessoaResource {
     }
 
     @PutMapping("/{cod}")
-    public Pessoa atualizar(@PathVariable Long cod, @Valid @RequestBody Pessoa pessoa){
-        Pessoa pessoaSalva = this.pessoaRepository.findById(cod).orElseThrow(() -> new EmptyResultDataAccessException(1));
-        BeanUtils.copyProperties(pessoa, pessoaSalva, "cod");
-        return this.pessoaRepository.save(pessoaSalva);
+    public ResponseEntity<Pessoa> atualizar(@PathVariable Long cod, @Valid @RequestBody Pessoa pessoa){
+        Pessoa pessoaSalva = pessoaService.atualizar(cod, pessoa);
+        return ResponseEntity.ok(pessoaSalva);
+
     }
 }
