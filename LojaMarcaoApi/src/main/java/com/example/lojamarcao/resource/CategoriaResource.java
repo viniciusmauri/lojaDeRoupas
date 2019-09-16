@@ -57,6 +57,5 @@ public class CategoriaResource {
     public ResponseEntity<Categoria> atualizar(@PathVariable Long cod, @Valid @RequestBody Categoria categoria){
 	    Categoria categoriaSalva = categoriaService.atualizar(cod, categoria);
 	    return ResponseEntity.ok(categoriaSalva);
-
     }
 }

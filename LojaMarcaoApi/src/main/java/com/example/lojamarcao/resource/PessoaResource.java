@@ -44,7 +44,7 @@ public class PessoaResource {
 
     @GetMapping("/{cod}")
     public ResponseEntity buscaPeloCodPessoa(@PathVariable Long cod) {
-        return this.pessoaRepository.findById(cod).map(pessoa -> ResponseEntity.ok(pessoa))
+        return this.pessoaRepository.findById(cod).map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
