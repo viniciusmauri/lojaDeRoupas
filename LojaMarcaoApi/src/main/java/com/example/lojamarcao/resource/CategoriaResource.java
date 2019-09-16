@@ -50,7 +50,7 @@ public class CategoriaResource {
 	@DeleteMapping("/{cod}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void remover(@PathVariable Long cod){
-        categoriaRepository.delete(cod);
+        this.categoriaRepository.deleteById(cod);
     }
 
     @PutMapping("/{cod}")

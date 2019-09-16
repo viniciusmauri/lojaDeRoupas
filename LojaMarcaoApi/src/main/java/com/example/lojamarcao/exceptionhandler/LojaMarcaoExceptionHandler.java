@@ -32,7 +32,7 @@ public class LojaMarcaoExceptionHandler extends ResponseEntityExceptionHandler {
 	protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException e,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
 		String mensagemUsuario = messageSource.getMessage("mensagem invalida", null, LocaleContextHolder.getLocale());
-		String mensagemDev = e.getCause().toString();
+		String mensagemDev = e.getCause() != null ? e.getCause().toString() : e.toString();
 		List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDev));
 		return handleExceptionInternal(e, erros, headers, HttpStatus.BAD_REQUEST,
 				request);

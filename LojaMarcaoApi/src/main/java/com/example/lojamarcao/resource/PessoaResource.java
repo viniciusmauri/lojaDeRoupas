@@ -51,7 +51,13 @@ public class PessoaResource {
     @DeleteMapping("/{cod}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void remover(@PathVariable Long cod){
-        pessoaRepository.delete(cod);
+        this.pessoaRepository.deleteById(cod);
+    }
+
+    @PutMapping("/{cod}/ativo")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void atualizarPropriedadeAtivo(@PathVariable Long cod, @RequestBody Boolean ativo){
+        pessoaService.atualizarPropriedadeAtivo(cod,ativo);
     }
 
     @PutMapping("/{cod}")
