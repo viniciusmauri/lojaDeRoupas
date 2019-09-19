@@ -13,7 +13,7 @@ public class Lancamento{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long codLancamento;
+    private Long cod;
 
     @NotNull
     private String tipo;
@@ -23,12 +23,12 @@ public class Lancamento{
     @NotNull
     private Long total;
 
-    public Long getCodLancamento() {
-        return codLancamento;
+    public Long getCod() {
+        return cod;
     }
 
-    public void setCodLancamento(Long codLancamento) {
-        this.codLancamento = codLancamento;
+    public void setCod(Long cod) {
+        this.cod = cod;
     }
 
     public String getTipo() {
@@ -59,7 +59,7 @@ public class Lancamento{
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((codLancamento == null) ? 0 : codLancamento.hashCode());
+        result = prime * result + ((cod == null) ? 0 : cod.hashCode());
         return result;
     }
 
@@ -72,10 +72,10 @@ public class Lancamento{
         if (getClass() != obj.getClass())
             return false;
         Lancamento other = (Lancamento) obj;
-        if (codLancamento == null) {
-            if (other.codLancamento != null)
+        if (cod == null) {
+            if (other.cod != null)
                 return false;
-        } else if (!codLancamento.equals(other.codLancamento))
+        } else if (!cod.equals(other.cod))
             return false;
         return true;
     }

@@ -13,6 +13,7 @@ public class CategoriaService {
     @Autowired
     private CategoriaRepository categoriaRepository;
 
+    //Serviço para atualizar uma categoria
     public Categoria atualizar(Long cod, Categoria categoria){
         Categoria categoriaSalva = this.categoriaRepository.findById(cod)
                 .orElseThrow(() -> new EmptyResultDataAccessException(1));
@@ -21,5 +22,19 @@ public class CategoriaService {
         }
         BeanUtils.copyProperties(categoria, categoriaSalva, "cod");
         return this.categoriaRepository.save(categoriaSalva);
+    }
+
+    //Serviço para buscar uma categoria pelo cod
+    private Categoria buscaPeloCod(Long cod){
+        Categoria categoriaSalva = this.categoriaRepository.findById(cod)
+                .orElseThrow(() -> new EmptyResultDataAccessException(1));
+        return categoriaSalva;
+    }
+
+    //Serviço para atualizar o nome de uma categoria
+    public void atualizarNomeCategoria(Long cod, String nome){
+        Categoria categoriaSalva = buscaPeloCod(cod);
+        categoriaSalva.setNome(nome);
+        categoriaRepository.save(categoriaSalva);
     }
 }

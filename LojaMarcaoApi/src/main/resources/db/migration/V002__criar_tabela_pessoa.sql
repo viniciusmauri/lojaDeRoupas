@@ -1,6 +1,6 @@
 CREATE TABLE pessoa
 (
-    cod_pessoa BiGINT(20) PRIMARY KEY AUTO_INCREMENT,
+    cod_pessoa BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
     nomePessoa VARCHAR(40) NOT NULL,
     ativo BOOLEAN
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8;
