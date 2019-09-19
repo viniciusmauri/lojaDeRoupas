@@ -1,11 +1,9 @@
 package com.example.lojamarcao.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Entity
 @Table(name="lancamento")
@@ -15,13 +13,28 @@ public class Lancamento{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cod;
 
-    @NotNull
-    private String tipo;
+    @Column(name = "data_vencimento")
+    private LocalDate dataVencimento;
+
+    @Column(name = "data_pagamento")
+    private  LocalDate dataPagamento;
+
+    @Enumerated(EnumType.STRING)
+    private TipoLancamento tipo;
+
+    @ManyToOne
+    @JoinColumn(name = "cod_categoria")
+    private Categoria categoria;
+
+    @ManyToOne
+    @JoinColumn(name = "cod_pessoa")
+    private Pessoa pessoa;
+
+    private BigDecimal total;
 
     private Boolean status;
 
-    @NotNull
-    private Long total;
+    private String observacao;
 
     public Long getCod() {
         return cod;
@@ -29,14 +42,6 @@ public class Lancamento{
 
     public void setCod(Long cod) {
         this.cod = cod;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
     }
 
     public Boolean getStatus() {
@@ -47,12 +52,60 @@ public class Lancamento{
         this.status = status;
     }
 
-    public Long getTotal() {
+    public BigDecimal getTotal() {
         return total;
     }
 
-    public void setTotal(Long total) {
+    public void setTotal(BigDecimal total) {
         this.total = total;
+    }
+
+    public LocalDate getDataVencimento() {
+        return dataVencimento;
+    }
+
+    public void setDataVencimento(LocalDate dataVencimento) {
+        this.dataVencimento = dataVencimento;
+    }
+
+    public LocalDate getDataPagamento() {
+        return dataPagamento;
+    }
+
+    public void setDataPagamento(LocalDate dataPagamento) {
+        this.dataPagamento = dataPagamento;
+    }
+
+    public TipoLancamento getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(TipoLancamento tipo) {
+        this.tipo = tipo;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
+    public Pessoa getPessoa() {
+        return pessoa;
+    }
+
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
+    }
+
+    public String getObservacao() {
+        return observacao;
+    }
+
+    public void setObservacao(String observacao) {
+        this.observacao = observacao;
     }
 
     @Override
