@@ -22,27 +22,33 @@ public class Lancamento{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cod;
 
+    @NotNull
     @Column(name = "data_vencimento")
     private LocalDate dataVencimento;
 
     @Column(name = "data_pagamento")
     private  LocalDate dataPagamento;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     private TipoLancamento tipo;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "cod_categoria")
     private Categoria categoria;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "cod_pessoa")
     private Pessoa pessoa;
 
-    private BigDecimal total;
+    @NotNull
+    private BigDecimal valor;
 
     private Boolean status;
 
+    @NotNull
     private String observacao;
 
     public Long getCod() {
@@ -61,12 +67,12 @@ public class Lancamento{
         this.status = status;
     }
 
-    public BigDecimal getTotal() {
-        return total;
+    public BigDecimal getValor() {
+        return valor;
     }
 
-    public void setTotal(BigDecimal total) {
-        this.total = total;
+    public void setValor(BigDecimal valor) {
+        this.valor = valor;
     }
 
     public LocalDate getDataVencimento() {

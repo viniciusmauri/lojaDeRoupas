@@ -21,7 +21,7 @@ public class PessoaService {
     }
 
     //Serviço para buscar uma pessoa pelo código
-    private Pessoa buscarPessoaPeloCod(Long cod) {
+    public Pessoa buscarPessoaPeloCod(Long cod) {
         Pessoa pessoaSalva = this.pessoaRepository.findById(cod).orElseThrow(() -> new EmptyResultDataAccessException(1));
         return pessoaSalva;
     }

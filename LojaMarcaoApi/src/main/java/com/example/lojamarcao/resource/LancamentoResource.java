@@ -1,27 +1,27 @@
 package com.example.lojamarcao.resource;
 
 import java.net.URI;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import com.example.lojamarcao.event.RecursoCriadoEvent;
+import com.example.lojamarcao.exceptionhandler.LojaMarcaoExceptionHandler;
 import com.example.lojamarcao.model.Lancamento;
 import com.example.lojamarcao.repository.LancamentoRepository;
 import com.example.lojamarcao.service.LancamentoService;
 
+import com.example.lojamarcao.service.exception.PessoaInexistenteOuInativaException;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
@@ -29,10 +29,19 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 public class LancamentoResource {
 
     @Autowired
+    private MessageSource messageSource;
+
+    @Autowired
+    private LojaMarcaoExceptionHandler lojaMarcaoExceptionHandler;
+
+    @Autowired
     private LancamentoRepository lancamentoRepository;
 
     @Autowired
     private LancamentoService lancamentoService;
+
+    @Autowired
+    private ApplicationEventPublisher publisher;
 
     //Método para listar os lançamentos
     @GetMapping
@@ -44,14 +53,10 @@ public class LancamentoResource {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Lancamento> cadastrarLancamento(@Valid @RequestBody Lancamento lancamento,
-            HttpServletResponse response) {
-        Lancamento lancamentoSalvo = lancamentoRepository.save(lancamento);
-
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{cod}")
-                .buildAndExpand(lancamentoSalvo.getCod()).toUri();
-        response.setHeader("Location", uri.toASCIIString());
-
-        return ResponseEntity.created(uri).body(lancamentoSalvo);
+            HttpServletResponse response){
+        Lancamento lancamentoSalvo = lancamentoService.salvar(lancamento);
+        publisher.publishEvent(new RecursoCriadoEvent(this, response, lancamentoSalvo.getCod()));
+        return ResponseEntity.status(HttpStatus.CREATED).body(lancamentoSalvo);
     }
 
     //Método para buscar um lançamento
@@ -74,4 +79,13 @@ public class LancamentoResource {
         Lancamento lancamentoSalvo = lancamentoService.atualizar(cod, lancamento);
         return ResponseEntity.ok(lancamentoSalvo);
     }
+
+    //Método para lançar exceção caso tente salvar um lançamento para uma pessoa inexistente
+    @ExceptionHandler({ PessoaInexistenteOuInativaException.class})
+        public ResponseEntity<Object> handlePessoaInexistenteOuInativaException(PessoaInexistenteOuInativaException e){
+            String mensagemUsuario = messageSource.getMessage("pessoa-inexistente-ou-inativa", null, LocaleContextHolder.getLocale());
+            String mensagemDev = e.toString();
+            List<LojaMarcaoExceptionHandler.Erro> erros = Arrays.asList(new LojaMarcaoExceptionHandler.Erro(mensagemUsuario, mensagemDev));
+            return ResponseEntity.badRequest().body(erros);
+        }
 }

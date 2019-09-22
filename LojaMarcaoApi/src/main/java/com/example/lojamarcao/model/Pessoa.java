@@ -6,7 +6,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "pessoa")
@@ -17,6 +20,9 @@ public class Pessoa {
 
     @NotNull
     private String nomePessoa;
+
+    @NotNull
+    private String telefone;
 
     @Embedded
     private Endereco endereco;
@@ -53,6 +59,20 @@ public class Pessoa {
 
     public void setAtivo(Boolean ativo) {
         this.ativo = ativo;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    @JsonIgnore
+    @Transient
+    public boolean isInativo(){
+        return !this.ativo;
     }
 
     @Override
