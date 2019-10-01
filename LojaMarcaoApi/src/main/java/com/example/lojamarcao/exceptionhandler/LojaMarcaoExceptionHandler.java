@@ -28,7 +28,6 @@ public class LojaMarcaoExceptionHandler extends ResponseEntityExceptionHandler {
 
 	@Autowired
 	private MessageSource messageSource;
-	private Object bindingResult;
 
 	@Override
 	protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException e,
@@ -36,26 +35,24 @@ public class LojaMarcaoExceptionHandler extends ResponseEntityExceptionHandler {
 		String mensagemUsuario = messageSource.getMessage("mensagem invalida", null, LocaleContextHolder.getLocale());
 		String mensagemDev = e.getCause() != null ? e.getCause().toString() : e.toString();
 		List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDev));
-		return handleExceptionInternal(e, erros, headers, HttpStatus.BAD_REQUEST,
-				request);
+		return handleExceptionInternal(e, erros, headers, HttpStatus.BAD_REQUEST, request);
 	}
 
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException e,
-			HttpHeaders headers,
-			HttpStatus status, WebRequest request) {
+			HttpHeaders headers, HttpStatus status, WebRequest request) {
 
 		List<Erro> erros = criarListaDeErros(e.getBindingResult());
 		return handleExceptionInternal(e, erros, headers, HttpStatus.BAD_REQUEST, request);
 	}
 
-	@ExceptionHandler({DataIntegrityViolationException.class})
-	public ResponseEntity<Object> handleDataIntegrityViolation(DataIntegrityViolationException e, WebRequest request){
-		String mensagemUsuario = messageSource.getMessage("recurso.operacao-nao-permitida", null, LocaleContextHolder.getLocale());
+	@ExceptionHandler({ DataIntegrityViolationException.class })
+	public ResponseEntity<Object> handleDataIntegrityViolation(DataIntegrityViolationException e, WebRequest request) {
+		String mensagemUsuario = messageSource.getMessage("recurso.operacao-nao-permitida", null,
+				LocaleContextHolder.getLocale());
 		String mensagemDev = ExceptionUtils.getRootCauseMessage(e);
 		List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDev));
-		return handleExceptionInternal(e, erros, new HttpHeaders(), HttpStatus.NOT_FOUND,
-				request);
+		return handleExceptionInternal(e, erros, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
 	}
 
 	private List<Erro> criarListaDeErros(BindingResult bindingResult) {
@@ -68,14 +65,16 @@ public class LojaMarcaoExceptionHandler extends ResponseEntityExceptionHandler {
 		}
 		return erros;
 	}
-	@ExceptionHandler({EmptyResultDataAccessException.class})
+
+	@ExceptionHandler({ EmptyResultDataAccessException.class })
 	@ResponseStatus(HttpStatus.NOT_FOUND)
-	public ResponseEntity<Object> handleEmptyResultDataAccessException(EmptyResultDataAccessException e, WebRequest request) {
-		String mensagemUsuario = messageSource.getMessage("recurso.nao-encontrado", null, LocaleContextHolder.getLocale());
+	public ResponseEntity<Object> handleEmptyResultDataAccessException(EmptyResultDataAccessException e,
+			WebRequest request) {
+		String mensagemUsuario = messageSource.getMessage("recurso.nao-encontrado", null,
+				LocaleContextHolder.getLocale());
 		String mensagemDev = e.toString();
 		List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDev));
-		return handleExceptionInternal(e, erros, new HttpHeaders(), HttpStatus.NOT_FOUND,
-				request);
+		return handleExceptionInternal(e, erros, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
 	}
 
 	public static class Erro {

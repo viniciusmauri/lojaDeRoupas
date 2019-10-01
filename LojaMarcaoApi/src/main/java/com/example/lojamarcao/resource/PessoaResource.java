@@ -29,45 +29,44 @@ public class PessoaResource {
     @Autowired
     private ApplicationEventPublisher publisher;
 
-    //Método para Listar as pessoas
+    // Método para Listar as pessoas
     @GetMapping
     public List<Pessoa> listar() {
         return pessoaRepository.findAll();
     }
 
-    //Método para cadastrar uma pessoa
+    // Método para cadastrar uma pessoa
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Pessoa> cadastrarPessoa(@Valid @RequestBody Pessoa pessoa, HttpServletResponse response) {
         Pessoa pessoaSalva = pessoaRepository.save(pessoa);
-       publisher.publishEvent(new RecursoCriadoEvent(this, response, pessoaSalva.getCod()));
+        publisher.publishEvent(new RecursoCriadoEvent(this, response, pessoaSalva.getCod()));
         return ResponseEntity.status(HttpStatus.CREATED).body(pessoaSalva);
     }
 
-    //Método para Buscar uma pessoa pelo código
+    // Método para Buscar uma pessoa pelo código
     @GetMapping("/{cod}")
-    public ResponseEntity buscaPeloCodPessoa(@PathVariable Long cod) {
-        return this.pessoaRepository.findById(cod).map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<Pessoa> buscaPeloCodPessoa(@PathVariable Long cod) {
+        return this.pessoaRepository.findById(cod).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
-    //Método para deletar uma pessoa do Sistema
+    // Método para deletar uma pessoa do Sistema
     @DeleteMapping("/{cod}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void remover(@PathVariable Long cod){
+    public void remover(@PathVariable Long cod) {
         this.pessoaRepository.deleteById(cod);
     }
 
-    //Método para Atualizar se a pessoa está ativa ou não no sistema
+    // Método para Atualizar se a pessoa está ativa ou não no sistema
     @PutMapping("/{cod}/ativo")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void atualizarPropriedadeAtivo(@PathVariable Long cod, @RequestBody Boolean ativo){
-        pessoaService.atualizarPropriedadeAtivo(cod,ativo);
+    public void atualizarPropriedadeAtivo(@PathVariable Long cod, @RequestBody Boolean ativo) {
+        pessoaService.atualizarPropriedadeAtivo(cod, ativo);
     }
 
-    //Método para atualizar uma pessoa
+    // Método para atualizar uma pessoa
     @PutMapping("/{cod}")
-    public ResponseEntity<Pessoa> atualizar(@PathVariable Long cod, @Valid @RequestBody Pessoa pessoa){
+    public ResponseEntity<Pessoa> atualizar(@PathVariable Long cod, @Valid @RequestBody Pessoa pessoa) {
         Pessoa pessoaSalva = pessoaService.atualizar(cod, pessoa);
         return ResponseEntity.ok(pessoaSalva);
     }

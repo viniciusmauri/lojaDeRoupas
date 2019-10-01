@@ -22,18 +22,18 @@ public class CategoriaResource {
 	private CategoriaRepository categoriaRepository;
 
 	@Autowired
-    private CategoriaService categoriaService;
+	private CategoriaService categoriaService;
 
-    @Autowired
-    private ApplicationEventPublisher publisher;
+	@Autowired
+	private ApplicationEventPublisher publisher;
 
-    //Método para listar as categorias
+	// Método para listar as categorias
 	@GetMapping
 	public List<Categoria> listar() {
 		return categoriaRepository.findAll();
 	}
 
-	//Método para criar uma categoria
+	// Método para criar uma categoria
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<Categoria> criarCategoria(@Valid @RequestBody Categoria categoria,
@@ -43,31 +43,31 @@ public class CategoriaResource {
 		return ResponseEntity.status(HttpStatus.CREATED).body(categoriaSalva);
 	}
 
-	//Método para buscar uma Categoria
+	// Método para buscar uma Categoria
 	@GetMapping("/{cod}")
-	public ResponseEntity buscarPeloCod(@PathVariable Long cod) {
+	public ResponseEntity<Categoria> buscarPeloCod(@PathVariable Long cod) {
 		return this.categoriaRepository.findById(cod).map(categoria -> ResponseEntity.ok(categoria))
 				.orElse(ResponseEntity.notFound().build());
 	}
 
-	//Método para deletar uma Categoria
+	// Método para deletar uma Categoria
 	@DeleteMapping("/{cod}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void remover(@PathVariable Long cod){
-        this.categoriaRepository.deleteById(cod);
-    }
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void remover(@PathVariable Long cod) {
+		this.categoriaRepository.deleteById(cod);
+	}
 
-    //Método para atualizar uma Categoria
-    @PutMapping("/{cod}")
-    public ResponseEntity<Categoria> atualizar(@PathVariable Long cod, @Valid @RequestBody Categoria categoria){
-	    Categoria categoriaSalva = categoriaService.atualizar(cod, categoria);
-	    return ResponseEntity.ok(categoriaSalva);
-    }
+	// Método para atualizar uma Categoria
+	@PutMapping("/{cod}")
+	public ResponseEntity<Categoria> atualizar(@PathVariable Long cod, @Valid @RequestBody Categoria categoria) {
+		Categoria categoriaSalva = categoriaService.atualizar(cod, categoria);
+		return ResponseEntity.ok(categoriaSalva);
+	}
 
-    //Método para atualizar o nome de uma categoria
-    @PutMapping("/{cod}/nome")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void atualizarNomeCategoria(@PathVariable Long cod, @RequestBody String nome){
-	    categoriaService.atualizarNomeCategoria(cod,nome);
-    }
+	// Método para atualizar o nome de uma categoria
+	@PutMapping("/{cod}/nome")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void atualizarNomeCategoria(@PathVariable Long cod, @RequestBody String nome) {
+		categoriaService.atualizarNomeCategoria(cod, nome);
+	}
 }
