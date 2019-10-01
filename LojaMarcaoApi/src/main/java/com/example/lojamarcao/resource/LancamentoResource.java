@@ -10,6 +10,7 @@ import com.example.lojamarcao.event.RecursoCriadoEvent;
 import com.example.lojamarcao.exceptionhandler.LojaMarcaoExceptionHandler;
 import com.example.lojamarcao.model.Lancamento;
 import com.example.lojamarcao.repository.LancamentoRepository;
+import com.example.lojamarcao.repository.filter.LancamentoFilter;
 import com.example.lojamarcao.service.LancamentoService;
 
 import com.example.lojamarcao.service.exception.PessoaInexistenteOuInativaException;
@@ -36,6 +37,11 @@ public class LancamentoResource {
 
     @Autowired
     private ApplicationEventPublisher publisher;
+
+    @GetMapping
+    public List<Lancamento> pesquisar(LancamentoFilter lancamentoFilter) {
+        return lancamentoRepository.filtrar(lancamentoFilter);
+    }
 
     // Método para listar os lançamentos
     @GetMapping
