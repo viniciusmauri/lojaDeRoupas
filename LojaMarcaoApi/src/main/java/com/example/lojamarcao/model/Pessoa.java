@@ -22,6 +22,9 @@ public class Pessoa {
     private String nomePessoa;
 
     @NotNull
+    private String cpf;
+
+    @NotNull
     private String telefone;
 
     @Embedded
@@ -43,6 +46,14 @@ public class Pessoa {
 
     public void setNomePessoa(String nomePessoa) {
         this.nomePessoa = nomePessoa;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
     public Endereco getEndereco() {
@@ -99,5 +110,4 @@ public class Pessoa {
             return false;
         return true;
     }
-
 }

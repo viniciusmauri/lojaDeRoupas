@@ -2,6 +2,7 @@ CREATE TABLE IF NOT EXISTS pessoa
 (
     cod_pessoa BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
     nomePessoa VARCHAR(40) NOT NULL,
+    cpf VARCHAR(11) NOT NULL, 
     ativo BOOLEAN,
     logradouro VARCHAR (30),
     numero VARCHAR (30),
