@@ -6,6 +6,9 @@ import com.example.lojamarcao.repository.LancamentoRepository;
 import com.example.lojamarcao.repository.PessoaRepository;
 import com.example.lojamarcao.repository.filter.LancamentoFilter;
 import com.example.lojamarcao.service.exception.PessoaInexistenteOuInativaException;
+
+import java.util.List;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;

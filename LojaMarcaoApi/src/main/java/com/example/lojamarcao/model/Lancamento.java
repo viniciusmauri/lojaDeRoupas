@@ -49,6 +49,8 @@ public class Lancamento{
     private Boolean status;
 
     @NotNull
+    private String descricao;
+    
     private String observacao;
 
     public Long getCod() {
@@ -113,6 +115,14 @@ public class Lancamento{
 
     public void setPessoa(Pessoa pessoa) {
         this.pessoa = pessoa;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public String getObservacao() {

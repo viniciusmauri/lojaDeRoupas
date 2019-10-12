@@ -14,27 +14,27 @@ public class LancamentoFilter {
     private LocalDate dataVencimentoAte;
 
     public String getDescricao() {
-        return descricao;
+	return descricao;
     }
 
     public void setDescricao(String descricao) {
-        this.descricao = descricao;
+	this.descricao = descricao;
     }
 
     public LocalDate getDataVencimentoDe() {
-        return dataVencimentoDe;
+	return dataVencimentoDe;
     }
 
     public void setDataVencimentoDe(LocalDate dataVencimentoDe) {
-        this.dataVencimentoDe = dataVencimentoDe;
+	this.dataVencimentoDe = dataVencimentoDe;
     }
 
     public LocalDate getDataVencimentoAte() {
-        return dataVencimentoAte;
+	return dataVencimentoAte;
     }
 
     public void setDataVencimentoAte(LocalDate dataVencimentoAte) {
-        this.dataVencimentoAte = dataVencimentoAte;
+	this.dataVencimentoAte = dataVencimentoAte;
     }
 
 }
