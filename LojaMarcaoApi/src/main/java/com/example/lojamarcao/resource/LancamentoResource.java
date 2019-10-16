@@ -14,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +31,7 @@ import com.example.lojamarcao.exceptionhandler.LojaMarcaoExceptionHandler;
 import com.example.lojamarcao.model.Lancamento;
 import com.example.lojamarcao.repository.LancamentoRepository;
 import com.example.lojamarcao.repository.filter.LancamentoFilter;
+import com.example.lojamarcao.repository.projection.ResumoLancamento;
 import com.example.lojamarcao.service.LancamentoService;
 import com.example.lojamarcao.service.exception.PessoaInexistenteOuInativaException;
 
@@ -51,13 +53,22 @@ public class LancamentoResource {
 
     // Método para pesquisar os lançamentos
     @GetMapping
+    @PreAuthorize("hasAuthority('ROLE_PESQUISAR_CATEGORIA') and $oauth2.hasScope('read')")
     public Page<Lancamento> pesquisar(LancamentoFilter lancamentoFilter, Pageable pageable) {
 	return lancamentoRepository.filtrar(lancamentoFilter, pageable);
+    }
+    
+    // Método para pesquisar os resumos de lancamentos
+    @GetMapping(params = "resumo")
+    @PreAuthorize("hasAuthority('ROLE_PESQUISAR_CATEGORIA') and $oauth2.hasScope('read')")
+    public Page<ResumoLancamento> resumir(LancamentoFilter lancamentoFilter, Pageable pageable) {
+	return lancamentoRepository.resumir(lancamentoFilter, pageable);
     }
 
     // Método para cadastrar um lançamento
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasAuthority('ROLE_PESQUISAR_CATEGORIA') and $oauth2.hasScope('write')")
     public ResponseEntity<Lancamento> cadastrarLancamento(@Valid @RequestBody Lancamento lancamento,
 	    HttpServletResponse response) {
 	Lancamento lancamentoSalvo = lancamentoService.salvar(lancamento);
@@ -67,6 +78,7 @@ public class LancamentoResource {
 
     // Método para buscar um lançamento
     @GetMapping("/{cod}")
+    @PreAuthorize("hasAuthority('ROLE_PESQUISAR_CATEGORIA') and $oauth2.hasScope('read')")
     public ResponseEntity<Lancamento> buscaPeloCodLancamento(@PathVariable Long cod) {
 	return this.lancamentoRepository.findById(cod).map(lancamento -> ResponseEntity.ok(lancamento))
 		.orElse(ResponseEntity.notFound().build());
@@ -75,12 +87,14 @@ public class LancamentoResource {
     // Método para deletar um lançamento
     @DeleteMapping("/{cod}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("hasAuthority('ROLE_PESQUISAR_CATEGORIA') and $oauth2.hasScope('write')")
     public void remover(@PathVariable Long cod) {
 	this.lancamentoRepository.deleteById(cod);
     }
 
     // Método para atualizar um lançamento
     @PutMapping("/{cod}")
+    @PreAuthorize("hasAuthority('ROLE_PESQUISAR_CATEGORIA') and $oauth2.hasScope('write')")
     public ResponseEntity<Lancamento> atualizar(@PathVariable Long cod, @Valid @RequestBody Lancamento lancamento) {
 	Lancamento lancamentoSalvo = lancamentoService.atualizar(cod, lancamento);
 	return ResponseEntity.ok(lancamentoSalvo);
@@ -97,4 +111,5 @@ public class LancamentoResource {
 		.asList(new LojaMarcaoExceptionHandler.Erro(mensagemUsuario, mensagemDev));
 	return ResponseEntity.badRequest().body(erros);
     }
+    
 }
