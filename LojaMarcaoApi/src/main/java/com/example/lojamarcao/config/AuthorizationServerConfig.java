@@ -19,6 +19,7 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
 import com.example.lojamarcao.config.token.CustomTokenEnhancer;
 
+
 @Profile("oauth-security")
 @Configuration
 @EnableAuthorizationServer
@@ -31,7 +32,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 	clients.inMemory().withClient("angular").secret("@ngul@r0").scopes("read", "write")
 		.authorizedGrantTypes("password", "refresh_token").accessTokenValiditySeconds(18000)
-		.refreshTokenValiditySeconds(18000 * 24).and().withClient("mobile").secret("m0b1l30").scopes("read")
+		.refreshTokenValiditySeconds(3600 * 24).and().withClient("mobile").secret("m0b1l30").scopes("read")
 		.authorizedGrantTypes("password", "refresh_token").accessTokenValiditySeconds(18000)
 		.refreshTokenValiditySeconds(3600 * 24);
     }

@@ -1,14 +1,14 @@
 package com.example.lojamarcao.model;
 
-import static javax.persistence.FetchType.EAGER;
 
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 
@@ -23,8 +23,8 @@ public class Usuario {
     private String email;
     private String senha;
 
-    @ManyToOne(fetch = EAGER)
-    @JoinTable(name="usuario_permissao", joinColumns = @JoinColumn(name="cod_usuario"), inverseJoinColumns = @JoinColumn(name="cod_permissao"))
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "usuario_permissao", joinColumns = @JoinColumn(name = "cod_usuario"), inverseJoinColumns = @JoinColumn(name = "cod_permissao"))
     private List<Permissao> permissoes;
 
 	public Long getCod() {
@@ -63,7 +63,7 @@ public class Usuario {
 		return permissoes;
 	}
 
-	public void setPermissoes(List<Permissao> permissoes) {
+	public void setPermissoes(List <Permissao> permissoes) {
 		this.permissoes = permissoes;
 	}
 

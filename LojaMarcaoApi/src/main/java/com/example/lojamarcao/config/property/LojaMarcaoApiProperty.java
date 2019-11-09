@@ -4,35 +4,35 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @ConfigurationProperties("lojamarcao")
 public class LojaMarcaoApiProperty {
-    
-    private String originPermitida = "http://localhost:8080";
-    
-    private final Seguranca seguranca = new Seguranca();
 
-    public Seguranca getSeguranca() {
-	return seguranca;
-    }
+	private String originPermitida = "http://localhost:8000";
 
-    public static class Seguranca {
+	private final Seguranca seguranca = new Seguranca();
 
-	private boolean enableHttps;
-
-	public boolean isEnableHttps() {
-	    return enableHttps;
+	public Seguranca getSeguranca() {
+		return seguranca;
 	}
 
-	public void setEnableHttps(boolean enableHttps) {
-	    this.enableHttps = enableHttps;
+	public String getOriginPermitida() {
+		return originPermitida;
 	}
 
-    }
+	public void setOriginPermitida(String originPermitida) {
+		this.originPermitida = originPermitida;
+	}
 
-    public String getOriginPermitida() {
-        return originPermitida;
-    }
+	public static class Seguranca {
 
-    public void setOriginPermitida(String originPermitida) {
-        this.originPermitida = originPermitida;
-    }
-    
+		private boolean enableHttps;
+
+		public boolean isEnableHttps() {
+			return enableHttps;
+		}
+
+		public void setEnableHttps(boolean enableHttps) {
+			this.enableHttps = enableHttps;
+		}
+
+	}
+
 }

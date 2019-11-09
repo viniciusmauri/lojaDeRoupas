@@ -6,35 +6,36 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 public class LancamentoFilter {
 
-    private String descricao;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate dataVencimentoDe;
+	private String descricao;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate dataVencimentoAte;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate dataVencimentoDe;
 
-    public String getDescricao() {
-	return descricao;
-    }
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate dataVencimentoAte;
 
-    public void setDescricao(String descricao) {
-	this.descricao = descricao;
-    }
+	public String getDescricao() {
+		return descricao;
+	}
 
-    public LocalDate getDataVencimentoDe() {
-	return dataVencimentoDe;
-    }
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
 
-    public void setDataVencimentoDe(LocalDate dataVencimentoDe) {
-	this.dataVencimentoDe = dataVencimentoDe;
-    }
+	public LocalDate getDataVencimentoDe() {
+		return dataVencimentoDe;
+	}
 
-    public LocalDate getDataVencimentoAte() {
-	return dataVencimentoAte;
-    }
+	public void setDataVencimentoDe(LocalDate dataVencimentoDe) {
+		this.dataVencimentoDe = dataVencimentoDe;
+	}
 
-    public void setDataVencimentoAte(LocalDate dataVencimentoAte) {
-	this.dataVencimentoAte = dataVencimentoAte;
-    }
+	public LocalDate getDataVencimentoAte() {
+		return dataVencimentoAte;
+	}
+
+	public void setDataVencimentoAte(LocalDate dataVencimentoAte) {
+		this.dataVencimentoAte = dataVencimentoAte;
+	}
 
 }

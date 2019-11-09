@@ -12,16 +12,16 @@ import com.example.lojamarcao.security.UsuarioSistema;
 
 public class CustomTokenEnhancer implements TokenEnhancer {
 
-    @Override
-    public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
-	UsuarioSistema usuarioSistema = (UsuarioSistema) authentication.getPrincipal();
+	@Override
+	public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
+		UsuarioSistema usuarioSistema = (UsuarioSistema) authentication.getPrincipal();
 
-	Map<String, Object> addInfo = new HashMap<>();
-	addInfo.put("nome", usuarioSistema.getUsuario().getNome());
+		Map<String, Object> addInfo = new HashMap<>();
+		addInfo.put("nome", usuarioSistema.getUsuario().getNome());
 
-	((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(addInfo);
+		((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(addInfo);
 
-	return accessToken;
-    }
+		return accessToken;
+	}
 
 }
