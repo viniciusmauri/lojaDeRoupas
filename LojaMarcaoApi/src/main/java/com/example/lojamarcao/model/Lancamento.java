@@ -1,9 +1,19 @@
 package com.example.lojamarcao.model;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "lancamento")
@@ -41,111 +51,111 @@ public class Lancamento{
 
     @NotNull
     private String descricao;
-    
+
     private String observacao;
 
     public Long getCod() {
-        return cod;
+	return cod;
     }
 
     public void setCod(Long cod) {
-        this.cod = cod;
+	this.cod = cod;
     }
 
     public Boolean getStatus() {
-        return status;
+	return status;
     }
 
     public void setStatus(Boolean status) {
-        this.status = status;
+	this.status = status;
     }
 
     public BigDecimal getValor() {
-        return valor;
+	return valor;
     }
 
     public void setValor(BigDecimal valor) {
-        this.valor = valor;
+	this.valor = valor;
     }
 
     public LocalDate getDataVencimento() {
-        return dataVencimento;
+	return dataVencimento;
     }
 
     public void setDataVencimento(LocalDate dataVencimento) {
-        this.dataVencimento = dataVencimento;
+	this.dataVencimento = dataVencimento;
     }
 
     public LocalDate getDataPagamento() {
-        return dataPagamento;
+	return dataPagamento;
     }
 
     public void setDataPagamento(LocalDate dataPagamento) {
-        this.dataPagamento = dataPagamento;
+	this.dataPagamento = dataPagamento;
     }
 
     public TipoLancamento getTipo() {
-        return tipo;
+	return tipo;
     }
 
     public void setTipo(TipoLancamento tipo) {
-        this.tipo = tipo;
+	this.tipo = tipo;
     }
 
     public Categoria getCategoria() {
-        return categoria;
+	return categoria;
     }
 
     public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
+	this.categoria = categoria;
     }
 
     public Pessoa getPessoa() {
-        return pessoa;
+	return pessoa;
     }
 
     public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
+	this.pessoa = pessoa;
     }
 
     public String getDescricao() {
-        return descricao;
+	return descricao;
     }
 
     public void setDescricao(String descricao) {
-        this.descricao = descricao;
+	this.descricao = descricao;
     }
 
     public String getObservacao() {
-        return observacao;
+	return observacao;
     }
 
     public void setObservacao(String observacao) {
-        this.observacao = observacao;
+	this.observacao = observacao;
     }
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((cod == null) ? 0 : cod.hashCode());
-        return result;
+	final int prime = 31;
+	int result = 1;
+	result = prime * result + ((cod == null) ? 0 : cod.hashCode());
+	return result;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Lancamento other = (Lancamento) obj;
-        if (cod == null) {
-            if (other.cod != null)
-                return false;
-        } else if (!cod.equals(other.cod))
-            return false;
-        return true;
+	if (this == obj)
+	    return true;
+	if (obj == null)
+	    return false;
+	if (getClass() != obj.getClass())
+	    return false;
+	Lancamento other = (Lancamento) obj;
+	if (cod == null) {
+	    if (other.cod != null)
+		return false;
+	} else if (!cod.equals(other.cod))
+	    return false;
+	return true;
     }
 }

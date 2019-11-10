@@ -18,12 +18,7 @@
 		<version>2.1.7.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.foxtechbh.lojamarcao</groupId>
-	<artifactId>LojaMarcaoApi</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>LojaMarcaoApi</name>
-	<description>Api Loja Marcao</description>
-
+	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
