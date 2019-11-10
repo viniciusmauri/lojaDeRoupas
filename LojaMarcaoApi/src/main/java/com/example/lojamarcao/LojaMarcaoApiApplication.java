@@ -1,10 +1,9 @@
 package com.example.lojamarcao;
 
+import com.example.lojamarcao.config.property.LojaMarcaoApiProperty;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-
-import com.example.lojamarcao.config.property.LojaMarcaoApiProperty;
 
 @SpringBootApplication
 @EnableConfigurationProperties(LojaMarcaoApiProperty.class)

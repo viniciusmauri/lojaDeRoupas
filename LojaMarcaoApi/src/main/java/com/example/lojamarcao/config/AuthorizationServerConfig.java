@@ -1,7 +1,6 @@
 package com.example.lojamarcao.config;
 
-import java.util.Arrays;
-
+import com.example.lojamarcao.config.token.CustomTokenEnhancer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,7 +16,7 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
-import com.example.lojamarcao.config.token.CustomTokenEnhancer;
+import java.util.Arrays;
 
 
 @Profile("oauth-security")

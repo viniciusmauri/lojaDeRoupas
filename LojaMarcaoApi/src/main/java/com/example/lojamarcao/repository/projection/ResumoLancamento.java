@@ -1,9 +1,9 @@
 package com.example.lojamarcao.repository.projection;
 
+import com.example.lojamarcao.model.TipoLancamento;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
-
-import com.example.lojamarcao.model.TipoLancamento;
 
 public class ResumoLancamento {
 

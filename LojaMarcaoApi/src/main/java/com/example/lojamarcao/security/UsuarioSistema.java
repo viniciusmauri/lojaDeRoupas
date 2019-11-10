@@ -1,11 +1,10 @@
 package com.example.lojamarcao.security;
 
-import java.util.Collection;
-
+import com.example.lojamarcao.model.Usuario;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
-import com.example.lojamarcao.model.Usuario;
+import java.util.Collection;
 
 public class UsuarioSistema extends User {
 
