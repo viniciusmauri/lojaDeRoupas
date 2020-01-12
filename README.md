@@ -1,4 +1,4 @@
-# Loja
+# Loja de Roupa
 Projeto em Java, Angular, o intuíto é criar uma aplicação onde os será possivel gerenciar uma Loja de Roupas, onde os usuários irão cadastrar clientes e mercadorias, além de gerar relatórios.</br>
 
 # Getting Startd
